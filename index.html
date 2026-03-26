@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Lucky Wheel</title>
+  <script src="https://cdn.jsdelivr.net/npm/winwheel@2.7.0/Winwheel.min.js"></script>
+</head>
+
+<body style="text-align:center; font-family:sans-serif; background:#111; color:#fff;">
+
+  <h1>Lời chào 👋</h1>
+
+  <h2>🎡 Lucky Wheel</h2>
+
+  <canvas id="wheel" width="300" height="300"></canvas>
+  <br><br>
+  <button onclick="spin()" style="padding:10px 20px; font-size:16px;">
+    Quay ngay
+  </button>
+
+  <h3 id="result"></h3>
+
+  <script>
+    let theWheel = new Winwheel({
+        'numSegments': 6,
+        'segments': [
+            {'text': 'Giảm 10%'},
+            {'text': 'Free nước'},
+            {'text': 'Không trúng'},
+            {'text': 'Late checkout'},
+            {'text': 'Giảm 20%'},
+            {'text': 'Không trúng'}
+        ],
+        'animation': {
+            'type': 'spinToStop',
+            'duration': 5,
+            'spins': 8,
+            'callbackFinished': alertPrize
+        }
+    });
+
+    function spin() {
+        theWheel.startAnimation();
+    }
+
+    function alertPrize(indicatedSegment) {
+        document.getElementById("result").innerHTML =
+          "🎁 Bạn nhận được: " + indicatedSegment.text;
+    }
+  </script>
+
+  <hr>
+
+  <div style="display:flex; justify-content:center; gap:40px;">
+    <div>
+      <h3>Mục 2+3</h3>
+      <p>- Phòng đẹp</p>
+      <p>- Giá tốt</p>
+    </div>
+
+    <div>
+      <h3>Mục 4+5</h3>
+      <p>- Gần trung tâm</p>
+      <p>- Check-in dễ</p>
+    </div>
+  </div>
+
+</body>
+</html>
