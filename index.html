@@ -2,68 +2,152 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Lucky Wheel</title>
+  <title>Lucky Wheel - Nhận ưu đãi 🎁</title>
+
+  <!-- Font đẹp -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+  <!-- Thư viện vòng quay -->
   <script src="https://cdn.jsdelivr.net/npm/winwheel@2.7.0/Winwheel.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 28px;
+    }
+
+    p {
+      color: #ccc;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 16px;
+      background: #facc15;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eab308;
+    }
+
+    #cta {
+      margin-top: 30px;
+      display: none;
+    }
+
+    .cta-btn {
+      background: #22c55e;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .box {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .item {
+      max-width: 200px;
+    }
+
+    .highlight {
+      color: #f87171;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
-<body style="text-align:center; font-family:sans-serif; background:#111; color:#fff;">
+<body>
 
-  <h1>Lời chào 👋</h1>
+  <h1>🏡 Chào mừng bạn đến với phòng của mình</h1>
+  <p>Quay vòng quay để nhận ưu đãi ngay hôm nay 🎁</p>
 
-  <h2>🎡 Lucky Wheel</h2>
+  <p class="highlight">⚡ Chỉ áp dụng trong hôm nay</p>
 
   <canvas id="wheel" width="300" height="300"></canvas>
-  <br><br>
-  <button onclick="spin()" style="padding:10px 20px; font-size:16px;">
-    Quay ngay
-  </button>
+
+  <br>
+  <button onclick="spin()">🎡 Quay ngay</button>
 
   <h3 id="result"></h3>
 
+  <!-- CTA -->
+  <div id="cta">
+    <p>👉 Nhận ưu đãi ngay bằng cách liên hệ:</p>
+    <a class="cta-btn" href="https://zalo.me/yourlink" target="_blank">
+      Nhắn Zalo nhận ưu đãi
+    </a>
+  </div>
+
+  <!-- Nội dung dưới -->
+  <div class="box">
+    <div class="item">
+      <h3>✨ Phòng đẹp</h3>
+      <p>Sạch sẽ, decor xịn</p>
+    </div>
+
+    <div class="item">
+      <h3>📍 Vị trí tốt</h3>
+      <p>Gần trung tâm, dễ di chuyển</p>
+    </div>
+  </div>
+
   <script>
-    let theWheel = new Winwheel({
-        'numSegments': 6,
-        'segments': [
-            {'text': 'Giảm 10%'},
-            {'text': 'Free nước'},
-            {'text': 'Không trúng'},
-            {'text': 'Late checkout'},
-            {'text': 'Giảm 20%'},
-            {'text': 'Không trúng'}
-        ],
-        'animation': {
-            'type': 'spinToStop',
-            'duration': 5,
-            'spins': 8,
-            'callbackFinished': alertPrize
-        }
+    let wheel = new Winwheel({
+      'numSegments': 6,
+      'outerRadius': 140,
+      'textFontSize': 14,
+      'segments': [
+        {'fillStyle': '#ef4444', 'text': 'Không trúng'},
+        {'fillStyle': '#22c55e', 'text': 'Giảm 10%'},
+        {'fillStyle': '#3b82f6', 'text': 'Free nước'},
+        {'fillStyle': '#f59e0b', 'text': 'Giảm 20%'},
+        {'fillStyle': '#8b5cf6', 'text': 'Late checkout'},
+        {'fillStyle': '#ef4444', 'text': 'Không trúng'}
+      ],
+      'animation': {
+        'type': 'spinToStop',
+        'duration': 5,
+        'spins': 8,
+        'callbackFinished': showResult
+      }
     });
 
     function spin() {
-        theWheel.startAnimation();
+      wheel.startAnimation();
     }
 
-    function alertPrize(indicatedSegment) {
-        document.getElementById("result").innerHTML =
-          "🎁 Bạn nhận được: " + indicatedSegment.text;
+    function showResult(segment) {
+      alert("🎉 Chúc mừng! Bạn nhận được: " + segment.text);
+
+      document.getElementById("result").innerHTML =
+        "🎁 Bạn nhận được: " + segment.text;
+
+      document.getElementById("cta").style.display = "block";
     }
   </script>
-
-  <hr>
-
-  <div style="display:flex; justify-content:center; gap:40px;">
-    <div>
-      <h3>Mục 2+3</h3>
-      <p>- Phòng đẹp</p>
-      <p>- Giá tốt</p>
-    </div>
-
-    <div>
-      <h3>Mục 4+5</h3>
-      <p>- Gần trung tâm</p>
-      <p>- Check-in dễ</p>
-    </div>
-  </div>
 
 </body>
 </html>
